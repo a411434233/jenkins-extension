@@ -1,11 +1,38 @@
 {
-    "for循环": {
-        "prefix": "xs-for",
-        "body": [
-            "for (const ${2:item} of ${1:array}) {",
-            "\t$0",
-            "}"
-        ],
-        "description": "for循环"
-    }
+  "for循环": {
+    "prefix": "xs-for",
+    "body": [
+      "for (const ${2:item} of ${1:array}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "for循环"
+  },
+  "xs-page-list": {
+    "prefix": "xs-page-list",
+    "body": [
+      "<xs-page-list :config='config' :data='data' @getList='getList' />"
+    ],
+    "description": "向上组件库,页面列表组件"
+  },
+  "config": {
+    "prefix": "config",
+    "body": [
+      "config: {",
+        "columns: [",
+          "  { name: '名称', prop: 'name' }",
+          "],",
+          "searchList: [",
+            "{ name: '时间筛选', prop: 'createTimeGreaterEqual', prop2: 'createTimeLessEqual', type: 'daterange', width: 5 }",
+          "],",
+          "buttonList: [",
+          "  {",
+          "   name: '导出',",
+          "   methodName: 'exportReport'",
+          "}",
+        "]",
+      "},"
+    ],
+    "description": "向上组件库,页面列表组件"
+  }
 }

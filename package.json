@@ -1,76 +1,70 @@
 {
-	"name": "xs-plugin",
-	"displayName": "VSCode插件demo",
-	"description": "demo",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.61.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:xs-plugin.helloWorld",
-		"onCommand:extension.sayHello",
-		"onCommand:extension.demo.openWebview"
-	],
-	"main": "./extension.js",
-	"contributes": {
-		"snippets": [
-			{
-				"language": "vue",
-				"path": "./xs-plugins/javascript.json"
-			}
-		],
-		"commands": [
-			{
-				"command": "xs-plugin.helloWorld",
-				"title": "Hello World"
-			},
-			{
-				"command": "extension.sayHello",
-				"title": "extension.sayHello"
-			},
-			{
-				"command": "extension.demo.openWebview",
-				"title": "添加xs-Page"
-			}
-		],
-		"menus": {
-			"editor/context": [
-				{
-					"when": "editorFocus",
-					"command": "xs-plugin.helloWorld",
-					"group": "navigation"
-				},
-				{
-					"when": "editorFocus",
-					"command": "extension.sayHello",
-					"group": "navigation"
-				}
-			],
-			"explorer/context": [
-				{
-					"command": "extension.demo.openWebview",
-					"group": "navigation"
-				}
-			]
-		}
-	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.61.0",
-		"@types/glob": "^7.1.4",
-		"@types/mocha": "^9.0.0",
-		"@types/node": "14.x",
-		"eslint": "^7.32.0",
-		"glob": "^7.1.7",
-		"mocha": "^9.1.1",
-		"typescript": "^4.4.3",
-		"@vscode/test-electron": "^1.6.2"
-	}
+  "name": "xs-plugin",
+  "displayName": "VSCode插件demo",
+  "description": "demo",
+  "version": "0.0.1",
+  "publisher": "cjw",
+  "engines": {
+    "vscode": "^1.61.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:pushFiles",
+    "onCommand:showDodia"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "javascript,html,vue",
+        "path": "./xs-plugins/javascript.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "pushFiles",
+        "title": "添加xs-Page",
+        "category": "Hello"
+      },
+      {
+        "command": "showDodia",
+        "title": "添加xs组件",
+        "category": "Hello"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorFocus",
+          "command": "pushFiles",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "showDodia",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.61.0",
+    "@types/glob": "^7.1.4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.x",
+    "eslint": "^7.32.0",
+    "glob": "^7.1.7",
+    "mocha": "^9.1.1",
+    "typescript": "^4.4.3",
+    "@vscode/test-electron": "^1.6.2"
+  }
 }
