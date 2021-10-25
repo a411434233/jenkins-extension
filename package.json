@@ -1,9 +1,14 @@
 {
-  "name": "xs-plugin",
-  "displayName": "VSCode插件demo",
-  "description": "demo",
-  "version": "0.0.1",
+  "name": "xs-template-page",
+  "displayName": "xs-template-page",
+  "description": "向上Vue模板快捷导入",
+  "version": "0.0.3",
   "publisher": "cjw",
+  "icon": "images/logo2.jpg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a411434233/xs-plugin-vscode.git"
+  },
   "engines": {
     "vscode": "^1.61.0"
   },
@@ -18,30 +23,30 @@
   "contributes": {
     "snippets": [
       {
-        "language": "javascript,html,vue",
+        "language": "javascript",
+        "path": "./xs-plugins/javascript.json"
+      },
+      {
+        "language": "html",
+        "path": "./xs-plugins/javascript.json"
+      },
+      {
+        "language": "vue",
+        "path": "./xs-plugins/javascript.json"
+      },
+      {
+        "language": "vue-html",
         "path": "./xs-plugins/javascript.json"
       }
     ],
     "commands": [
       {
-        "command": "pushFiles",
-        "title": "添加xs-Page",
-        "category": "Hello"
-      },
-      {
         "command": "showDodia",
-        "title": "添加xs组件",
+        "title": "添加向上页面组件",
         "category": "Hello"
       }
     ],
     "menus": {
-      "editor/context": [
-        {
-          "when": "editorFocus",
-          "command": "pushFiles",
-          "group": "navigation"
-        }
-      ],
       "explorer/context": [
         {
           "command": "showDodia",
