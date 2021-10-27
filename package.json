@@ -1,75 +1,98 @@
 {
-  "name": "xs-template-page",
-  "displayName": "xs-template-page",
-  "description": "向上Vue模板快捷导入",
-  "version": "0.0.3",
-  "publisher": "cjw",
-  "icon": "images/logo2.jpg",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/a411434233/xs-plugin-vscode.git"
-  },
-  "engines": {
-    "vscode": "^1.61.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onCommand:pushFiles",
-    "onCommand:showDodia"
-  ],
-  "main": "./extension.js",
-  "contributes": {
-    "snippets": [
-      {
-        "language": "javascript",
-        "path": "./xs-plugins/javascript.json"
-      },
-      {
-        "language": "html",
-        "path": "./xs-plugins/javascript.json"
-      },
-      {
-        "language": "vue",
-        "path": "./xs-plugins/javascript.json"
-      },
-      {
-        "language": "vue-html",
-        "path": "./xs-plugins/javascript.json"
-      }
-    ],
-    "commands": [
-      {
-        "command": "showDodia",
-        "title": "添加向上页面组件",
-        "category": "Hello"
-      }
-    ],
-    "menus": {
-      "explorer/context": [
-        {
-          "command": "showDodia",
-          "group": "navigation",
-          "when": "explorerResourceIsFolder"
-        }
-      ]
-    }
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "node ./test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.61.0",
-    "@types/glob": "^7.1.4",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "14.x",
-    "eslint": "^7.32.0",
-    "glob": "^7.1.7",
-    "mocha": "^9.1.1",
-    "typescript": "^4.4.3",
-    "@vscode/test-electron": "^1.6.2"
-  }
+	"name": "xs-template-page",
+	"displayName": "xs-template-page",
+	"description": "向上Vue模板快捷导入",
+	"version": "0.0.7",
+	"publisher": "cjw",
+	"icon": "images/logo2.jpg",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/a411434233/xs-plugin-vscode.git"
+	},
+	"engines": {
+		"vscode": "^1.61.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:xs-createApp",
+		"onCommand:showDialog",
+		"onCommand:addFolder"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"snippets": [
+			{
+				"language": "javascript",
+				"path": "./xs-plugins/javascript.json"
+			},
+			{
+				"language": "html",
+				"path": "./xs-plugins/javascript.json"
+			},
+			{
+				"language": "vue",
+				"path": "./xs-plugins/javascript.json"
+			},
+			{
+				"language": "vue-html",
+				"path": "./xs-plugins/javascript.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "xs-createApp",
+				"title": "创建向上前端项目",
+				"category": "xs-"
+			},
+			{
+				"command": "showDialog",
+				"title": "添加向上页面组件",
+				"category": "xs-"
+			},
+			{
+				"command": "addFolder",
+				"title": "创建文件夹",
+				"category": "xs-"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "xs-createApp",
+					"group": "navigation",
+					"when": "explorerResourceIsFolder"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "showDialog",
+					"group": "navigation",
+					"when": "explorerResourceIsFolder"
+				},
+				{
+					"command": "addFolder",
+					"group": "navigation",
+					"when": "explorerResourceIsFolder"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.61.0",
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"eslint": "^7.32.0",
+		"glob": "^7.1.7",
+		"mocha": "^9.1.1",
+		"typescript": "^4.4.3",
+		"@vscode/test-electron": "^1.6.2"
+	}
 }
