@@ -1,0 +1,56 @@
+{
+    "pages": [{
+            "path": "pages/home/index",
+            "style": {
+                "navigationBarTitleText": "首页"
+            }
+        },
+        {
+            "path": "pages/shop/index",
+            "style": {
+                "navigationBarTitleText": "商城"
+            }
+        },
+        {
+            "path": "pages/user-center/index",
+            "style": {
+                "navigationBarTitleText": "个人中心"
+            }
+        },
+        {
+            "path": "pages/product/index",
+            "style": {
+                "navigationBarTitleText": "产品详情页"
+            }
+        }
+    ],
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app-frame",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "backgroundColor": "#FFFFFF"
+    },
+    "tabBar": {
+        "color": "#666666",
+        "selectedColor": "#555555",
+        "list": [{
+                "pagePath": "pages/home/index",
+                "text": "首页",
+                "iconPath": "static/tabbar/home-0.png",
+                "selectedIconPath": "static/tabbar/home-1.png"
+            },
+            {
+                "pagePath": "pages/shop/index",
+                "text": "商城",
+                "iconPath": "static/tabbar/store-0.png",
+                "selectedIconPath": "static/tabbar/store-1.png"
+            },
+            {
+                "pagePath": "pages/user-center/index",
+                "text": "个人中心",
+                "iconPath": "static/tabbar/user-0.png",
+                "selectedIconPath": "static/tabbar/user-1.png"
+            }
+        ]
+    }
+}

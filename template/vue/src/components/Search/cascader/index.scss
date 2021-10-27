@@ -1,0 +1,18 @@
+.cascader-wrapper {
+    .el-cascader__tags {
+        flex-wrap: initial;
+        // flex-direction: row-reverse
+    }
+
+    .el-cascader {
+        min-width: 300px;
+    }
+
+    .el-cascader__tags .el-tag{
+        max-width: 160px;
+    }
+}
+
+.el-cascader-menu__wrap {
+    height: 600px;
+}

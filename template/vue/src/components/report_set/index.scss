@@ -1,0 +1,45 @@
+.report-set-wrapper {
+    min-width: 550px;
+
+    .el-row {
+        margin: 4px 0;
+    }
+
+    .el-select>.el-input {
+        width: 440px;
+    }
+
+    .el-form-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .el-radio-group {
+        margin-top: 0;
+    }
+
+    .el-form-item__content {
+        line-height: initial;
+    }
+
+    .el-checkbox {
+        margin-right: 10px;
+    }
+
+    .el-col {
+        display: flex;
+        align-items: center;
+
+        >span {
+            width: 80px;
+            text-align: right;
+            vertical-align: middle;
+            float: left;
+            font-size: 14px;
+            color: #606266;
+            line-height: 28px;
+            padding: 0 12px 0 0;
+            box-sizing: border-box;
+        }
+    }
+}

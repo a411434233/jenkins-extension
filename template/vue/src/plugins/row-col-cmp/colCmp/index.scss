@@ -1,0 +1,50 @@
+ .grid-content {
+   width: 100%;
+   display: flex;
+   text-align: center;
+
+   .grid-content-key {
+     width: 80px;
+     min-width: 50px;
+     color: #303133;
+     white-space: nowrap;
+     text-overflow: ellipsis;
+     overflow: hidden;
+     word-break: break-all;
+     text-align: right;
+     padding-right: 3px;
+   }
+
+   .grid-content-val {
+     flex: 1;
+     text-align: left;
+     line-height: 18px;
+     width: 100%;
+   }
+   .textOverflow {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: default;
+   }
+ }
+
+ .ul {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+ }
+
+ .li {
+   width: 50%;
+   display: inline-block;
+   background: #ededee;
+   text-align: center;
+ }
+
+ .ul:after {
+   content: "";
+   width: 30%;
+   height: 0px;
+   visibility: hidden;
+ }

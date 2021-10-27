@@ -1,0 +1,136 @@
+.rong-chat {
+	position: absolute;
+	width: 100%;
+	min-height: 100vh;
+	top: 0;
+	bottom: 0;
+	overflow: auto;
+}
+
+.rong-messages {
+	position: absolute;
+	top: 0;
+	bottom: 115rpx;
+	width: 100%;
+	overflow-y: auto;
+	padding: 0 16rpx;
+	box-sizing: border-box;
+}
+
+.rong-messages-getbtn {
+	margin: 10px;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 14px;
+}
+.sentTime {
+	margin-bottom: 20rpx;
+	text-align: center;
+	font-size: 10px;
+	color: #8e969f;
+}
+.rong-message-avatar {
+	height: 80rpx;
+	width: 80rpx;
+	border-radius: 10rpx;
+}
+
+.rong-message-name {
+	font-size: 20rpx;
+	color: #8e969f;
+	width: 80rpx;
+	overflow: hidden;
+	text-align: center;
+}
+
+.rong-message-avatar-receiver {
+	float: left;
+}
+
+.rong-message-avatar-sender {
+	float: right;
+}
+
+.rong-message-content {
+	max-width: 70%;
+	box-sizing: border-box;
+	display: inline-block;
+	border-radius: 10rpx;
+	word-wrap: break-word;
+	position: relative;
+	// top: 25rpx;
+	margin: 0 15rpx;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.05);
+	font-size: 30rpx;
+	font-family: 'PingFang SC';
+	color: #000000;
+}
+
+.rong-message-content-receiver::after,
+.rong-message-content-receiver::before,
+.rong-message-content-sender::after,
+.rong-message-content-sender::before {
+	content: '';
+	border: 15rpx solid;
+	position: absolute;
+	top: 20rpx;
+	border-color: transparent;
+}
+
+.rong-message-content-receiver::after {
+	// border-color: transparent #fff transparent transparent;
+	left: -23rpx;
+	z-index: 0;
+}
+
+.rong-message-content-receiver::before {
+	border-color: transparent transparent transparent transparent;
+	left: -26.5rpx;
+}
+
+.rong-message-content-receiver {
+	float: left;
+	// background-color: #CBE7FC;
+	background-color: #fff;
+}
+
+.rong-message-content-sender::after {
+	// border-color: transparent transparent transparent #fff;
+	right: -24rpx;
+	z-index: 0;
+}
+
+.rong-message-content-sender {
+	float: right;
+	background-color: #fff;
+}
+
+.rong-clearfix {
+	clear: both;
+}
+
+.rong-message-content-image-sender {
+	float: right;
+	margin-right: 19rpx;
+	margin-top: -16rpx;
+}
+
+.rong-message-content-image-receiver {
+	margin-top: -16rpx;
+	margin-left: 16rpx;
+}
+
+.fixed-top {
+	position: fixed;
+	width: 100%;
+	left: 0;
+	top: 20rpx;
+}
+
+.fixed-bottom {
+	position: fixed;
+	left: 0;
+	bottom: 110rpx;
+	width: 100%;
+}

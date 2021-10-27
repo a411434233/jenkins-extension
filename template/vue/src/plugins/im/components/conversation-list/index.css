@@ -1,0 +1,92 @@
+.rong-avatar {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.nodata {
+  text-align: center;
+}
+
+.conversation-wrapper {
+  width: 100%;
+  height: 100vh;
+}
+.rong-conversation {
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
+  padding: 10px 0px 10px 0px;
+  border-bottom: 1px solid rgba(238, 238, 238, 1);
+  cursor: pointer;
+}
+
+.rong-conversation-messagecontent {
+  margin-top: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 50%;
+  font-family: 'PingFang SC';
+  font-weight: 500;
+  color: #666666;
+  margin-left: 65px;
+  padding-bottom: 2px;
+}
+
+.rong-conversation-title {
+  color: #333;
+  position: relative;
+  top: 10px;
+  font-family: 'PingFang SC';
+  font-weight: bold;
+  color: #000000;
+}
+
+.rong-conversation-avatar {
+  float: left;
+  margin-right: 20px;
+  margin-top: 4px;
+}
+
+.rong-conversation-unreadcount {
+  position: absolute;
+  top: 5px;
+  left: 35px;
+  background-color: red;
+  border-radius: 50%;
+  color: #FFF;
+  height: 15px;
+  min-width: 15px;
+  text-align: center;
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+
+.rong-conversation-senttime {
+  position: absolute;
+  top: 32px;
+  right: 20px;
+}
+
+.isTop {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+.isTophover {
+  opacity: 0.9;
+  background: #f7f7f7;
+}
+
+.isDisturb {
+  position: absolute;
+  bottom: 0;
+  right: 50px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 12px;
+}

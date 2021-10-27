@@ -1,0 +1,13 @@
+//监听是否手机号登录
+export const SET_PHONETOLOGIN = 'SET_PHONETOLOGIN';
+//切换角色
+export const SET_MOCKUSERIDENTITY = 'SET_MOCKUSERIDENTITY';
+//接口返回的角色
+export const SET_REALUSERIDENTITY = 'SET_REALUSERIDENTITY';
+//是否获取过角色
+export const SET_HASJUDGROLE = 'SET_HASJUDGROLE';
+//门店信息
+export const SET_STOREINFOOBJ = 'SET_STOREINFOOBJ';
+
+
+

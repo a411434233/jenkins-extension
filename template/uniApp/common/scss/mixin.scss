@@ -1,0 +1,111 @@
+@mixin border-1px($color: #ccc, $radius: 1px, $style: solid) {
+    position: relative;
+
+    &::after {
+        content: "";
+        pointer-events: none;
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: 0 0;
+        border: 1px $style $color;
+        border-radius: $radius;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+
+        @media (min-resolution: 2dppx) {
+            width: 200%;
+            height: 200%;
+            border-radius: $radius * 2;
+            transform: scale(.5);
+        }
+
+        @media (min-resolution: 3dppx) {
+            width: 300%;
+            height: 300%;
+            border-radius: $radius * 3;
+            transform: scale(.333);
+        }
+    }
+}
+@mixin border-none() {
+    &::before {
+        display: none;
+    }
+
+    &::after {
+        display: none;
+    }
+}
+
+/* 1行文字省略 ... */
+@mixin no-wrap() {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* 多行文字省略 */
+@mixin line-clamp($line) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+}
+
+@mixin flex-fix() {
+    flex: 1;
+    flex-basis: 0.000000001px;
+    width: 1%;
+}
+
+@mixin loaded {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+img[lazy='loading'] {
+    zoom: 0.9
+}
+
+@mixin border-radius-3px {
+    border-radius: 3px;
+}
+
+@mixin border-radius-5px {
+    border-radius: 5px;
+}
+
+@mixin border-radius-7px {
+    border-radius: 7px;
+}
+
+@mixin flex-row-none($align:flex-start){
+    display: flex;
+    flex-direction: row;
+	align-items: $align;
+}
+@mixin flex-column-none($align:flex-start){
+    display: flex;
+    flex-direction: column;
+	align-items: $align;
+}
+@mixin flex-row($justify:flex-start){
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: $justify;
+}
+@mixin flex-column($justify:flex-start){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: $justify;
+}

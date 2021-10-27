@@ -1,0 +1,62 @@
+{
+  "name": "project-name",
+  "version": "1.0.0",
+  "templateName": "swg-cli-dev-template-admin",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@aspnet/signalr": "^1.0.27",
+    "@microsoft/signalr": "^5.0.6",
+    "@vue/test-utils": "^1.2.0",
+    "ali-oss": "^6.16.0",
+    "axios": "^0.21.1",
+    "core-js": "^3.6.5",
+    "deep-diff": "^1.0.2",
+    "echarts": "^4.8.0",
+    "element-ui": "^2.15.1",
+    "jquery": "^3.6.0",
+    "js-cookie": "^2.2.0",
+    "js-md5": "^0.7.3",
+    "moment": "^2.29.1",
+    "moment-duration-format": "^2.3.2",
+    "node-sass": "^6.0.0",
+    "normalize.css": "^7.0.0",
+    "nprogress": "^0.2.0",
+    "oidc-client": "^1.9.1",
+    "script-ext-html-webpack-plugin": "^2.1.5",
+    "vue": "^2.6.10",
+    "vue-clipboard2": "^0.3.1",
+    "vue-router": "^3.2.0",
+    "vue-ueditor-wrap": "^2.5.3",
+    "vuex": "^3.4.0",
+    "web-storage-cache": "^1.1.1",
+    "xs-common-plugins": "^1.1.2",
+    "xs-component": "^1.1.1",
+    "xs-plugins": "^1.0.3",
+    "xs-request": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "sass-loader": "^8.0.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "engines": {
+    "node": ">=8.9",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

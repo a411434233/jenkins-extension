@@ -23,12 +23,17 @@ function activate(context) {
 
   context.subscriptions.push(
     vscode.commands.registerCommand('xs-createApp', async function () {
-      const response = await vscode.window.showQuickPick(['vue后台', 'uni-app'], { placeHolder: '创建vuedemo' })
+      let response = await vscode.window.showQuickPick(['vue后台', 'uni-app'], { placeHolder: '创建vuedemo' })
       if (!response) return
+      if (response === 'vue后台') {
+        response = 'template/vue'
+      } else {
+        response = 'template/uniApp'
+      }
       const res = await vscode.window.showOpenDialog({ canSelectFolders: true, canSelectFiles: false, canSelectMany: false })
       if (res.length) {
         let url = res[0].path.replace('/', '')
-        copy(path.join(__dirname, 'template/vue'), url)
+        copy(path.join(__dirname, response), url)
         await vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.parse(res[0], false))
       }
     })

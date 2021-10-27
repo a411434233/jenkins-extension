@@ -1,0 +1,1 @@
+export default {"version":"2110261628","list":[{"title":"估吗优品","icon":"icon-dianpuxinxi","url":"/04-shopmng","hide":false,"sequ":0,"apis":[],"children":[{"title":"测试","icon":"","url":"/04-shopmng/01-shop","hide":false,"sequ":0,"apis":[],"children":[]}],"moduleName":"估吗优品"}]}

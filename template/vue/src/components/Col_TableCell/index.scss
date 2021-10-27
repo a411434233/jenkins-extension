@@ -1,0 +1,77 @@
+.Col_TableCell-wrapper {
+  .group {
+    &.abs {
+      position: relative;
+      border: solid 1px #ddd;
+    }
+
+
+    padding: 2px 0px;
+    min-height: 24px;
+    border-radius: 2px;
+
+    &+.group {
+      margin-top: -1px;
+    }
+
+    >div {
+      display: flex;
+      align-items: center;
+
+      >.item-main {
+        &.abs {
+          position: relative;
+
+          // >span:last-child {
+          padding-right: 40px;
+          // }
+        }
+
+        display: flex;
+        align-items: center;
+        line-height: 20px;
+        width: 100%;
+
+        >span {
+          display: inline-block;
+
+          &:first-child {
+
+            &.label {
+              color: #bbb;
+              max-width: 110px;
+              min-width: 70px;
+            }
+
+            &.noLabel {
+              color: #333;
+              min-width: none;
+              max-width: none;
+            }
+          }
+
+          &:last-child {
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+
+  .copy-btn {
+    display: inline-block;
+    text-align: center;
+    border: solid 1px #bbb;
+    border-radius: 2px;
+    min-width: 40px;
+    cursor: copy;
+
+  }
+
+  .copy-btn-abs {
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    right: 2px;
+  }
+}

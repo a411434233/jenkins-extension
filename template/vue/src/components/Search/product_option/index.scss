@@ -1,0 +1,69 @@
+.product_option-wrapper {}
+
+.select-empty-group {
+    width: 660px;
+    font-size: 14px;
+
+    .row {
+        position: relative;
+        margin: 0 8px;
+    }
+
+    .head {
+        position: absolute;
+        left: 11px;
+        top: 3px;
+        color: #999;
+
+
+        .title {
+            float: left;
+            max-width: 80px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .body {
+        padding-left: 96px;
+
+        .items {
+            height: 72px;
+            overflow: hidden;
+        }
+    }
+
+    .product-type {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .el-radio,
+    .check-width .el-checkbox {
+        width: 100px;
+        margin-right: 6px;
+        padding: 2px 0;
+    }
+
+    //分割线样式
+    .el-divider--horizontal {
+        margin: 12px 0;
+    }
+
+    .body-empty {
+        padding: 0 16px 0 96px;
+        display: flex;
+        align-items: center;
+
+        >span {
+            margin-top: 3px;
+        }
+    }
+
+
+    .el-cascader-menu__wrap {
+        height: 300px;
+    }
+
+}
