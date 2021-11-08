@@ -26,6 +26,59 @@ const copy = function (src, dst) {
     })
   })
 }
+
+
+function pxToRpx(res) {
+  let m = res.split(';')
+  m = m.map(str => {
+    return str.replace(/-?\d+(.\d+)?px/gi, (v) => {
+      if (v.split(' ').length > 1) {
+        return v.split(' ').map(val => {
+          return (parseFloat(val) * 2).toFixed(0) + 'rpx'
+        }).join(' ')
+      }
+      return (parseFloat(v) * 2).toFixed(0) + 'rpx'
+    })
+  })
+  return m.join(';')
+}
+
+
+function rpxToPx(res) {
+  let m = res.split(';')
+  m = m.map(str => {
+    return str.replace(/-?\d+(.\d+)?rpx/gi, (v) => {
+      if (v.split(' ').length > 1) {
+        return v.split(' ').map(val => {
+          return (parseFloat(val) / 2).toFixed(0) + 'px'
+        }).join(' ')
+      }
+      return (parseFloat(v) / 2).toFixed(0) + 'px'
+    })
+  })
+  return m.join(';')
+}
+
+function pxToRem(res, num = 75) {
+  let m = res.split(';')
+  m = m.map(str => {
+    return str.replace(/-?\d+(.\d+)?px/gi, (v) => {
+      if (v.split(' ').length > 1) {
+        return v.split(' ').map(val => {
+          return (parseFloat(val) / num).toFixed(0) + 'rem'
+        }).join(' ')
+      }
+
+      return (parseFloat(v) / 75).toFixed(0) + 'rem'
+    })
+  })
+  return m.join(';')
+}
+
+
 module.exports = {
-  copy
+  copy,
+  pxToRpx,
+  rpxToPx,
+  pxToRem
 }

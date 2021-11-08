@@ -3,7 +3,7 @@
 const vscode = require('vscode')
 const fs = require('fs')
 const path = require('path')
-const { copy } = require('./utils')
+const { copy, pxToRpx, rpxTopx, pxToRem, rpxToPx } = require('./utils')
 const { Uri } = require('vscode')
 
 // this method is called when your extension is activated
@@ -22,6 +22,7 @@ function activate(context) {
   // The commandId parameter must match the command field in package.json
 
   context.subscriptions.push(
+    //创建项目
     vscode.commands.registerCommand('xs-createApp', async function () {
       let response = await vscode.window.showQuickPick(['vue后台', 'uni-app'], { placeHolder: '创建vuedemo' })
       if (!response) return
@@ -39,6 +40,7 @@ function activate(context) {
     })
   )
 
+  //添加页面组件
   context.subscriptions.push(
     vscode.commands.registerCommand('showDialog', async e => {
       let files = fs.readdirSync(path.join(__dirname, 'xs-plugins/components'), { encoding: 'utf-8' })
@@ -57,6 +59,8 @@ function activate(context) {
     })
   )
 
+
+  //创建添加文件夹包含的页面组件
   context.subscriptions.push(
     vscode.commands.registerCommand('addFolder', async function (e) {
       const fileName = await vscode.window.showInputBox({ placeHolder: '输入文件夹名称' })
@@ -79,6 +83,56 @@ function activate(context) {
         }
       })
     })
+  )
+
+  // px转rpx
+  context.subscriptions.push(
+    vscode.commands.registerCommand('pxToRpx', async function () {
+      const actionsName = await vscode.window.showQuickPick(['rpx转px', 'px转rpx', 'px转rem'])
+      const file = await vscode.window.showOpenDialog({ canSelectMany: false })
+      if (!file) return
+      const url = file[0].path.replace('/', '')
+      fs.readFile(url, { encoding: 'utf-8' }, function (err, data) {
+        let endData = ''
+        if (actionsName === 'rpx转px') {
+          endData = rpxToPx(data)
+        }
+        if (actionsName === 'px转rpx') {
+          endData = pxToRpx(data)
+        }
+        if (actionsName === 'px转rem') {
+          let m = vscode.window.showInputBox({ title: '请输入除数' }) ?? '75'
+          if (isNaN(parseInt(m))) return
+          endData = pxToRem(data, m)
+        }
+
+        fs.writeFile(url, endData, function (err) {})
+      })
+    })
+  )
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('pxToRpxEvent', async function (e) {
+        const url = e.path.replace('/', '')
+        fs.readFile(url, { encoding: 'utf-8' }, function (err, data) {
+          let endData = ''
+          endData = pxToRpx(data)
+          fs.writeFile(url, endData, function (err) {})
+        })
+      }
+    )
+  )
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('rpxToPxEvent', async function (e) {
+        const url = e.path.replace('/', '')
+        fs.readFile(url, { encoding: 'utf-8' }, function (err, data) {
+          let endData = ''
+          endData = rpxToPx(data)
+          fs.writeFile(url, endData, function (err) {})
+        })
+      }
+    )
   )
 }
 

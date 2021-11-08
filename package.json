@@ -2,7 +2,7 @@
 	"name": "xs-template-page",
 	"displayName": "xs-template-page",
 	"description": "向上Vue模板快捷导入",
-	"version": "0.0.7",
+	"version": "0.0.9",
 	"publisher": "cjw",
 	"icon": "images/logo2.jpg",
 	"repository": {
@@ -18,7 +18,10 @@
 	"activationEvents": [
 		"onCommand:xs-createApp",
 		"onCommand:showDialog",
-		"onCommand:addFolder"
+		"onCommand:addFolder",
+		"onCommand:pxToRpx",
+		"onCommand:pxToRpxEvent",
+		"onCommand:rpxToPxEvent"
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -42,6 +45,21 @@
 		],
 		"commands": [
 			{
+				"command": "pxToRpxEvent",
+				"title": "px转rpx",
+				"category": "xs-"
+			},
+			{
+				"command": "rpxToPxEvent",
+				"title": "rpx转px",
+				"category": "xs-"
+			},
+			{
+				"command": "pxToRpx",
+				"title": "css转换",
+				"category": "xs-"
+			},
+			{
 				"command": "xs-createApp",
 				"title": "创建向上前端项目",
 				"category": "xs-"
@@ -61,6 +79,16 @@
 			"editor/context": [
 				{
 					"command": "xs-createApp",
+					"group": "navigation",
+					"when": "explorerResourceIsFolder"
+				},
+				{
+					"command": "pxToRpxEvent",
+					"group": "navigation",
+					"when": "explorerResourceIsFolder"
+				},
+				{
+					"command": "rpxToPxEvent",
 					"group": "navigation",
 					"when": "explorerResourceIsFolder"
 				}
