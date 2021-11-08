@@ -28,7 +28,7 @@ const copy = function (src, dst) {
 }
 
 
-function pxToRpx(res) {
+function pxToRpx(res, factorNum) {
   let m = res.split(';')
   m = m.map(str => {
     return str.replace(/-?\d+(.\d+)?px/gi, (v) => {
@@ -37,14 +37,14 @@ function pxToRpx(res) {
           return (parseFloat(val) * 2).toFixed(0) + 'rpx'
         }).join(' ')
       }
-      return (parseFloat(v) * 2).toFixed(0) + 'rpx'
+      return (parseFloat(v) * factorNum).toFixed(0) + 'rpx'
     })
   })
   return m.join(';')
 }
 
 
-function rpxToPx(res) {
+function rpxToPx(res, factorNum) {
   let m = res.split(';')
   m = m.map(str => {
     return str.replace(/-?\d+(.\d+)?rpx/gi, (v) => {
@@ -53,7 +53,7 @@ function rpxToPx(res) {
           return (parseFloat(val) / 2).toFixed(0) + 'px'
         }).join(' ')
       }
-      return (parseFloat(v) / 2).toFixed(0) + 'px'
+      return (parseFloat(v) / factorNum).toFixed(0) + 'px'
     })
   })
   return m.join(';')

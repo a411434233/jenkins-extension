@@ -2,7 +2,7 @@
 	"name": "xs-template-page",
 	"displayName": "xs-template-page",
 	"description": "向上Vue模板快捷导入",
-	"version": "0.0.9",
+	"version": "0.1.0",
 	"publisher": "cjw",
 	"icon": "images/logo2.jpg",
 	"repository": {
@@ -25,6 +25,26 @@
 	],
 	"main": "./extension.js",
 	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "xs配置插件配置",
+			"properties": {
+				"xsTemplateConfig.rpxFactorNum": {
+					"type": [
+						"number"
+					],
+					"default": 2,
+					"description": "转换rpx因数: px * 因数 = rpx"
+				},
+				"xsTemplateConfig.pxFactorNum": {
+					"type": [
+						"number"
+					],
+					"default": 2,
+					"description": "转换px因数 : rpx / 因数 = px"
+				}
+			}
+		},
 		"snippets": [
 			{
 				"language": "javascript",

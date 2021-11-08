@@ -3,8 +3,7 @@
 const vscode = require('vscode')
 const fs = require('fs')
 const path = require('path')
-const { copy, pxToRpx, rpxTopx, pxToRem, rpxToPx } = require('./utils')
-const { Uri } = require('vscode')
+const { copy, pxToRpx, pxToRem, rpxToPx } = require('./utils')
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -21,8 +20,8 @@ function activate(context) {
   // Now provide the implementation of the command with  registerCommand
   // The commandId parameter must match the command field in package.json
 
+  //创建项目
   context.subscriptions.push(
-    //创建项目
     vscode.commands.registerCommand('xs-createApp', async function () {
       let response = await vscode.window.showQuickPick(['vue后台', 'uni-app'], { placeHolder: '创建vuedemo' })
       if (!response) return
@@ -58,7 +57,6 @@ function activate(context) {
       })
     })
   )
-
 
   //创建添加文件夹包含的页面组件
   context.subscriptions.push(
@@ -111,29 +109,36 @@ function activate(context) {
     })
   )
 
+  // px转rpx
   context.subscriptions.push(
     vscode.commands.registerCommand('pxToRpxEvent', async function (e) {
+        let config = vscode.workspace.getConfiguration('xsTemplateConfig')
+        let factorNum = config.get('rpxFactorNum')
         const url = e.path.replace('/', '')
         fs.readFile(url, { encoding: 'utf-8' }, function (err, data) {
           let endData = ''
-          endData = pxToRpx(data)
+          endData = pxToRpx(data, factorNum)
           fs.writeFile(url, endData, function (err) {})
         })
       }
     )
   )
 
+  //rpx转px
   context.subscriptions.push(
     vscode.commands.registerCommand('rpxToPxEvent', async function (e) {
+        let config = vscode.workspace.getConfiguration('xsTemplateConfig')
+        let factorNum = config.get('pxFactorNum')
         const url = e.path.replace('/', '')
         fs.readFile(url, { encoding: 'utf-8' }, function (err, data) {
           let endData = ''
-          endData = rpxToPx(data)
+          endData = rpxToPx(data, factorNum)
           fs.writeFile(url, endData, function (err) {})
         })
       }
     )
   )
+
 }
 
 // this method is called when your extension is deactivated
