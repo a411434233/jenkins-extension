@@ -13,9 +13,9 @@ module.exports = function (context) {
       let response = await vscode.window.showQuickPick(['vue后台', 'uni-app'], { placeHolder: '创建vuedemo' })
       if (!response) return
       if (response === 'vue后台') {
-        response = 'template/vue'
+        response = '../template/vue'
       } else {
-        response = 'template/uniApp'
+        response = '../template/uniApp'
       }
       const res = await vscode.window.showOpenDialog({ canSelectFolders: true, canSelectFiles: false, canSelectMany: false })
       if (res.length) {

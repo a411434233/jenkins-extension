@@ -2,7 +2,7 @@
 	"name": "xs-template-page",
 	"displayName": "xs-template-page",
 	"description": "向上Vue模板快捷导入",
-	"version": "0.1.0",
+	"version": "0.1.2",
 	"publisher": "cjw",
 	"icon": "images/logo2.jpg",
 	"repository": {
@@ -23,7 +23,8 @@
 		"onCommand:pxToRpx",
 		"onCommand:pxToRpxEvent",
 		"onCommand:rpxToPxEvent",
-		"onCommand:extension.deleteFolder"
+		"onCommand:extension.jenkinsConstruct",
+		"onCommand:extension.jenkinsShowlog"
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -40,7 +41,7 @@
 			"package-explorer": [
 				{
 					"id": "nodeDependencies",
-					"name": "Jenkins",
+					"name": "Jenkins 列表",
 					"icon": "media/dep.svg",
 					"contextualTitle": "XS"
 				}
@@ -107,9 +108,12 @@
 		],
 		"commands": [
 			{
-				"command": "extension.deleteFolder",
-				"title": "jenkins构建",
-				"category": "xs-"
+				"command": "extension.jenkinsConstruct",
+				"title": "jenkins 一键快速构建"
+			},
+			{
+				"command": "extension.jenkinsShowlog",
+				"title": "jenkins 查看构建日志"
 			},
 			{
 				"command": "pxToRpxEvent",
@@ -145,8 +149,12 @@
 		"menus": {
 			"view/item/context": [
 				{
-					"command": "extension.deleteFolder",
-					"when": "viewItem == fffff"
+					"command": "extension.jenkinsConstruct",
+					"when": "viewItem == jenkins"
+				},
+				{
+					"command": "extension.jenkinsShowlog",
+					"when": "viewItem == jenkins"
 				}
 			],
 			"editor/context": [

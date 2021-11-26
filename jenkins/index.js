@@ -5,13 +5,12 @@ function getTreeItems(list) {
   let arr = []
 
   list.forEach((val, index) => {
-    let iconPath = ''
-    iconPath = path.join(__dirname, `../media/${val.color}.png`)
+    let iconPath = path.join(__dirname, `../media/${val.color ? val.color : 'notbuilt'}.png`)
     arr.push({
       label: val.name,
       id: index,
       iconPath: iconPath,
-      contextValue: 'fffff'
+      contextValue: 'jenkins'
     })
   })
   return arr
@@ -41,25 +40,33 @@ const getNowBuildNumber = function (name, jenkins) {
   })
 }
 
+let num = 0
 const jenkinsLog = async function (name, nextBuildNumber, jenkins, htmlWebview) {
   let next = await getNowBuildNumber(name, jenkins)
   if (next > nextBuildNumber) {
+    num = 0
     let log = jenkins.build.logStream(name, nextBuildNumber, { type: 'text', delay: 1000 })
 
     log.on('data', function (text) {
-      htmlWebview.webview.html += `<div style="color: wheat;font-size: 14px;line-height: 1.6">${text}</div>`
+      htmlWebview.webview.html += `<div style="color: #387cdf;font-size: 14px;line-height: 28px">${text}</div>`
     })
 
     log.on('error', function (err) {
-      htmlWebview.webview.html += `<div style="color: red;font-size: 18px;line-height: 1.6">构建错误${err}</div>`
+      htmlWebview.webview.html += `<div style="color: red;font-size: 14px;line-height: 28px">构建错误${err}</div>`
     })
 
     log.on('end', function () {
-      htmlWebview.webview.html += `<div style="color: seagreen;font-size: 18px;line-height: 1.6">构建结束</div>`
+      htmlWebview.webview.html += `<div style="color: seagreen;font-size: 14px;line-height: 28px">构建完成</div>`
     })
   } else {
     setTimeout(() => {
-      htmlWebview.webview.html += `<div style="color: wheat;font-size: 14px;line-height: 1.6">执行中...</div>`
+      num += 1
+      htmlWebview.webview.html = `<div style="color: wheat;font-size: 14px;line-height: 28px">执行中...${num}</div>`
+      if (num >= 15) {
+        num = 0
+        htmlWebview.webview.html = `<div style="color: wheat;font-size: 14px;line-height:28px">构建失败</div>`
+        return
+      }
       jenkinsLog(name, nextBuildNumber, jenkins, htmlWebview)
     }, 1000)
   }

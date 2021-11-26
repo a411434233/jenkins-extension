@@ -17,18 +17,27 @@ function activate(context) {
   // This line of code will only be executed once when your extension is activated
   // console.log('恭喜，您的扩展“xs-plugin”现已激活！');
   const jenkins = require('./jenkins/config')()
-  vscode.commands.registerCommand('extension.deleteFolder', function (res) {
+  vscode.commands.registerCommand('extension.jenkinsConstruct', function (res) {
     jenkins.job.get(res.label, function (err, getData) {
       let nextBuildNumber = getData.nextBuildNumber
       jenkins.job.build(res.label, function (err, data) {
         let htmlWebview = vscode.window.createWebviewPanel('web', 'jenkins 构建日志' + res.label, 3)
-        htmlWebview.webview.html += `<div style="color: #0b97c4;font-size: 14px;">开始构建 ${res.label}</div>`
+        htmlWebview.webview.html += `<div style="color: #387cdf;font-size: 14px;line-height: 28px">开始构建 ${res.label}</div>`
         jenkinsLog(res.label, nextBuildNumber, jenkins, htmlWebview)
       })
     })
   })
+  vscode.commands.registerCommand('extension.jenkinsShowlog', function (res) {
+    jenkins.job.get(res.label, function (err, getData) {
+      let nextBuildNumber = getData.nextBuildNumber
+      jenkins.build.log(getData.name, nextBuildNumber - 1, (err, data) => {
+        let htmlWebview = vscode.window.createWebviewPanel('web', 'jenkins 构建日志' + res.label, 3)
+        htmlWebview.webview.html += `<div style="color: #eee;font-size: 14px;line-height: 28px">${data}</div>`
+      })
+    })
+  })
 
-  let tm = vscode.window.createTreeView('nodeDependencies', {
+  vscode.window.createTreeView('nodeDependencies', {
     treeDataProvider: {
       getTreeItem(element) {
         return element
@@ -50,9 +59,6 @@ function activate(context) {
     showCollapseAll: true
   })
 
-  tm.onDidChangeSelection(e => {
-    console.log(e, 'onDidChangeSelection')
-  })
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
