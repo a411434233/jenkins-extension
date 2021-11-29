@@ -2,7 +2,7 @@
   "name": "xs-template-page",
   "displayName": "xs-template-page",
   "description": "向上Vue模板快捷导入",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "cjw",
   "icon": "images/logo2.jpg",
   "repository": {
@@ -23,8 +23,10 @@
     "onCommand:pxToRpx",
     "onCommand:pxToRpxEvent",
     "onCommand:rpxToPxEvent",
-    "onCommand:extension.jenkinsConstruct",
-    "onCommand:extension.jenkinsShowLog"
+    "onCommand:jenkins.jenkinsConstruct",
+    "onCommand:jenkins.jenkinsShowLog",
+    "onCommand:jenkins.getConfig",
+    "onCommand:jenkins.openURL"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -49,42 +51,32 @@
     },
     "configuration": {
       "type": "object",
-      "title": "xs配置插件配置",
+      "title": "xsTemplateConfig",
       "properties": {
         "xsTemplateConfig.rpxFactorNum": {
-          "type": [
-            "number"
-          ],
+          "type": "number",
           "default": 2,
-          "description": "转换rpx因数: px * 因数 = rpx"
+          "markdownDescription": "转换rpx因数: px * 因数 = rpx"
         },
         "xsTemplateConfig.pxFactorNum": {
-          "type": [
-            "number"
-          ],
+          "type": "number",
           "default": 2,
           "description": "转换px因数 : rpx / 因数 = px"
         },
-        "xsjenkinsConfig.userName": {
-          "type": [
-            "string"
-          ],
-          "default": 0,
+        "xsTemplateConfig.userName": {
+          "type": "string",
+          "default": "",
           "description": "jenkins登录账号"
         },
-        "xsjenkinsConfig.loginHost": {
-          "type": [
-            "string"
-          ],
-          "default": 0,
+        "xsTemplateConfig.loginHost": {
+          "type": "string",
+          "default": "",
           "description": "jenkins登录地址"
         },
-        "xsjenkinsConfig.password": {
-          "type": [
-            "string"
-          ],
-          "default": 0,
-          "description": "jenkins登录密码"
+        "xsTemplateConfig.password": {
+          "type": "string",
+          "default": "",
+          "description": "jenkins登录密码(token)"
         }
       }
     },
@@ -108,12 +100,20 @@
     ],
     "commands": [
       {
-        "command": "extension.jenkinsConstruct",
-        "title": "jenkins 项目构建"
+        "command": "jenkins.jenkinsConstruct",
+        "title": "构建项目"
       },
       {
-        "command": "extension.jenkinsShowLog",
-        "title": "jenkins 查看最近构建日志"
+        "command": "jenkins.jenkinsShowLog",
+        "title": "查看最近构建日志"
+      },
+      {
+        "command": "jenkins.getConfig",
+        "title": "编辑构建配置"
+      },
+      {
+        "command": "jenkins.openURL",
+        "title": "打开项目地址"
       },
       {
         "command": "pxToRpxEvent",
@@ -149,11 +149,19 @@
     "menus": {
       "view/item/context": [
         {
-          "command": "extension.jenkinsConstruct",
+          "command": "jenkins.jenkinsConstruct",
           "when": "viewItem == jenkins"
         },
         {
-          "command": "extension.jenkinsShowLog",
+          "command": "jenkins.openURL",
+          "when": "viewItem == jenkins"
+        },
+        {
+          "command": "jenkins.jenkinsShowLog",
+          "when": "viewItem == jenkins"
+        },
+        {
+          "command": "jenkins.getConfig",
           "when": "viewItem == jenkins"
         }
       ],
