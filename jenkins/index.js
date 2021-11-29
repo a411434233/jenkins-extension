@@ -1,29 +1,40 @@
 const vscode = require('vscode')
 const path = require('path')
-
-function getTreeItems(list) {
-  let arr = []
-
-  list.forEach((val, index) => {
-    let iconPath = path.join(__dirname, `../media/${val.color ? val.color : 'notbuilt'}.png`)
-    arr.push({
-      label: val.name,
-      id: index,
-      iconPath: iconPath,
-      contextValue: 'jenkins'
+const jenkins = require('./config')()
+const fs = require('fs')
+const jenkinsJob = async function (jobs, viewName) {
+  return new Promise(resolve => {
+    let arr = []
+    jobs.forEach((val, index) => {
+      let iconPath = path.join(__dirname, `../media/${val.color ? val.color : 'notbuilt'}.png`)
+      arr.push({
+        label: val.name,
+        id: viewName + '_' + val.name + '_' + index,
+        iconPath: iconPath,
+        contextValue: 'jenkins'
+      })
     })
+    resolve(arr)
   })
-  return arr
 }
 
-const jenkinsJob = async function (jenkins) {
+
+const jenkinsViews = function () {
   return new Promise(resolve => {
     jenkins.info(function (err, data) {
       if (err) {
         vscode.window.showErrorMessage(JSON.stringify(err))
+        return Promise.reject([])
       }
-      let list = getTreeItems(data.jobs)
-      resolve(list)
+      let arr = []
+      data.views.forEach((values, index) => {
+        arr.push({
+          label: values.name,
+          collapsibleState: 1,
+          id: index
+        })
+      })
+      resolve(arr)
     })
   })
 }
@@ -72,7 +83,57 @@ const jenkinsLog = async function (name, nextBuildNumber, jenkins, htmlWebview) 
   }
 }
 
+/**
+ * @param {vscode.ExtensionContext} context
+ */
+const jenkinsInit = (context) => {
+  vscode.commands.registerCommand('extension.jenkinsConstruct', function (res) {
+    jenkins.job.get(res.label, function (err, getData) {
+      let nextBuildNumber = getData.nextBuildNumber
+      jenkins.job.build(res.label, function (err, data) {
+        let htmlWebview = vscode.window.createWebviewPanel('web', 'jenkins 构建日志' + res.label, 3)
+        htmlWebview.webview.html += `<div style="color: #387cdf;font-size: 14px;line-height: 28px">开始构建 ${res.label}</div>`
+        jenkinsLog(res.label, nextBuildNumber, jenkins, htmlWebview).then()
+      })
+    })
+  })
+  vscode.commands.registerCommand('extension.jenkinsShowLog', function (res) {
+    jenkins.job.get(res.label, function (err, getData) {
+      let nextBuildNumber = getData.nextBuildNumber
+      jenkins.build.log(getData.name, nextBuildNumber - 1, (err, data) => {
+        let htmlWebview = vscode.window.createWebviewPanel('web', 'jenkins 构建日志' + res.label, 3)
+        htmlWebview.webview.html += `<div style="color: #eee;font-size: 14px;line-height: 28px">${data}</div>`
+      })
+    })
+  })
+  vscode.window.createTreeView('nodeDependencies', {
+    treeDataProvider: {
+      async getTreeItem(element) {
+        return element
+      },
+      async getChildren(element) {
+        if (element) return await jenkinsJobberViews(element.label)
+        return await jenkinsViews(jenkins)
+      },
+      getParent(element) {
+        console.log('getParent', element)
+      },
+    },
+    showCollapseAll: true,
+  })
+}
+const jenkinsJobberViews = function (viewName) {
+  return new Promise(resolve => {
+    jenkins.view.get(viewName, async function (err, data) {
+      let list = await jenkinsJob(data.jobs, viewName)
+      resolve(list)
+    })
+  })
+}
+
 module.exports = {
   jenkinsJob,
-  jenkinsLog
+  jenkinsLog,
+  jenkinsInit,
+  jenkinsJobberViews,
 }

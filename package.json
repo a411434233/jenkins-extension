@@ -1,210 +1,210 @@
 {
-	"name": "xs-template-page",
-	"displayName": "xs-template-page",
-	"description": "向上Vue模板快捷导入",
-	"version": "0.1.2",
-	"publisher": "cjw",
-	"icon": "images/logo2.jpg",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/a411434233/xs-plugin-vscode.git"
-	},
-	"engines": {
-		"vscode": "^1.61.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onView:nodeDependencies",
-		"onCommand:xs-createApp",
-		"onCommand:showDialog",
-		"onCommand:addFolder",
-		"onCommand:pxToRpx",
-		"onCommand:pxToRpxEvent",
-		"onCommand:rpxToPxEvent",
-		"onCommand:extension.jenkinsConstruct",
-		"onCommand:extension.jenkinsShowlog"
-	],
-	"main": "./extension.js",
-	"contributes": {
-		"viewsContainers": {
-			"activitybar": [
-				{
-					"id": "package-explorer",
-					"title": "Jenkins",
-					"icon": "media/dep.svg"
-				}
-			]
-		},
-		"views": {
-			"package-explorer": [
-				{
-					"id": "nodeDependencies",
-					"name": "Jenkins 列表",
-					"icon": "media/dep.svg",
-					"contextualTitle": "XS"
-				}
-			]
-		},
-		"configuration": {
-			"type": "object",
-			"title": "xs配置插件配置",
-			"properties": {
-				"xsTemplateConfig.rpxFactorNum": {
-					"type": [
-						"number"
-					],
-					"default": 2,
-					"description": "转换rpx因数: px * 因数 = rpx"
-				},
-				"xsTemplateConfig.pxFactorNum": {
-					"type": [
-						"number"
-					],
-					"default": 2,
-					"description": "转换px因数 : rpx / 因数 = px"
-				},
-				"xsjenkinsConfig.userName": {
-					"type": [
-						"string"
-					],
-					"default": 0,
-					"description": "jenkins登录账号"
-				},
-				"xsjenkinsConfig.loginHost": {
-					"type": [
-						"string"
-					],
-					"default": 0,
-					"description": "jenkins登录地址"
-				},
-				"xsjenkinsConfig.password": {
-					"type": [
-						"string"
-					],
-					"default": 0,
-					"description": "jenkins登录密码"
-				}
-			}
-		},
-		"snippets": [
-			{
-				"language": "javascript",
-				"path": "./xs-plugins/javascript.json"
-			},
-			{
-				"language": "html",
-				"path": "./xs-plugins/javascript.json"
-			},
-			{
-				"language": "vue",
-				"path": "./xs-plugins/javascript.json"
-			},
-			{
-				"language": "vue-html",
-				"path": "./xs-plugins/javascript.json"
-			}
-		],
-		"commands": [
-			{
-				"command": "extension.jenkinsConstruct",
-				"title": "jenkins 一键快速构建"
-			},
-			{
-				"command": "extension.jenkinsShowlog",
-				"title": "jenkins 查看构建日志"
-			},
-			{
-				"command": "pxToRpxEvent",
-				"title": "px转rpx",
-				"category": "xs-"
-			},
-			{
-				"command": "rpxToPxEvent",
-				"title": "rpx转px",
-				"category": "xs-"
-			},
-			{
-				"command": "pxToRpx",
-				"title": "css转换",
-				"category": "xs-"
-			},
-			{
-				"command": "xs-createApp",
-				"title": "创建向上前端项目",
-				"category": "xs-"
-			},
-			{
-				"command": "showDialog",
-				"title": "添加向上页面组件",
-				"category": "xs-"
-			},
-			{
-				"command": "addFolder",
-				"title": "创建文件夹",
-				"category": "xs-"
-			}
-		],
-		"menus": {
-			"view/item/context": [
-				{
-					"command": "extension.jenkinsConstruct",
-					"when": "viewItem == jenkins"
-				},
-				{
-					"command": "extension.jenkinsShowlog",
-					"when": "viewItem == jenkins"
-				}
-			],
-			"editor/context": [
-				{
-					"command": "xs-createApp",
-					"group": "navigation",
-					"when": "explorerResourceIsFolder"
-				},
-				{
-					"command": "pxToRpxEvent",
-					"group": "navigation",
-					"when": "explorerResourceIsFolder"
-				},
-				{
-					"command": "rpxToPxEvent",
-					"group": "navigation",
-					"when": "explorerResourceIsFolder"
-				}
-			],
-			"explorer/context": [
-				{
-					"command": "showDialog",
-					"group": "navigation",
-					"when": "explorerResourceIsFolder"
-				},
-				{
-					"command": "addFolder",
-					"group": "navigation",
-					"when": "explorerResourceIsFolder"
-				}
-			]
-		}
-	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.61.0",
-		"@types/glob": "^7.1.4",
-		"@types/mocha": "^9.0.0",
-		"@types/node": "14.x",
-		"eslint": "^7.32.0",
-		"glob": "^7.1.7",
-		"mocha": "^9.1.1",
-		"typescript": "^4.4.3",
-		"@vscode/test-electron": "^1.6.2"
-	},
-	"dependencies": {
-		"jenkins": "^0.28.1"
-	}
+  "name": "xs-template-page",
+  "displayName": "xs-template-page",
+  "description": "向上Vue模板快捷导入",
+  "version": "0.1.3",
+  "publisher": "cjw",
+  "icon": "images/logo2.jpg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a411434233/xs-plugin-vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.61.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:nodeDependencies",
+    "onCommand:xs-createApp",
+    "onCommand:showDialog",
+    "onCommand:addFolder",
+    "onCommand:pxToRpx",
+    "onCommand:pxToRpxEvent",
+    "onCommand:rpxToPxEvent",
+    "onCommand:extension.jenkinsConstruct",
+    "onCommand:extension.jenkinsShowLog"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "jenkins",
+          "title": "Jenkins",
+          "icon": "media/dep.svg"
+        }
+      ]
+    },
+    "views": {
+      "jenkins": [
+        {
+          "id": "nodeDependencies",
+          "name": "jenkins",
+          "icon": "media/dep.svg",
+          "contextualTitle": "XS"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "xs配置插件配置",
+      "properties": {
+        "xsTemplateConfig.rpxFactorNum": {
+          "type": [
+            "number"
+          ],
+          "default": 2,
+          "description": "转换rpx因数: px * 因数 = rpx"
+        },
+        "xsTemplateConfig.pxFactorNum": {
+          "type": [
+            "number"
+          ],
+          "default": 2,
+          "description": "转换px因数 : rpx / 因数 = px"
+        },
+        "xsjenkinsConfig.userName": {
+          "type": [
+            "string"
+          ],
+          "default": 0,
+          "description": "jenkins登录账号"
+        },
+        "xsjenkinsConfig.loginHost": {
+          "type": [
+            "string"
+          ],
+          "default": 0,
+          "description": "jenkins登录地址"
+        },
+        "xsjenkinsConfig.password": {
+          "type": [
+            "string"
+          ],
+          "default": 0,
+          "description": "jenkins登录密码"
+        }
+      }
+    },
+    "snippets": [
+      {
+        "language": "javascript",
+        "path": "./xs-plugins/javascript.json"
+      },
+      {
+        "language": "html",
+        "path": "./xs-plugins/javascript.json"
+      },
+      {
+        "language": "vue",
+        "path": "./xs-plugins/javascript.json"
+      },
+      {
+        "language": "vue-html",
+        "path": "./xs-plugins/javascript.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "extension.jenkinsConstruct",
+        "title": "jenkins 项目构建"
+      },
+      {
+        "command": "extension.jenkinsShowLog",
+        "title": "jenkins 查看最近构建日志"
+      },
+      {
+        "command": "pxToRpxEvent",
+        "title": "px转rpx",
+        "category": "xs-"
+      },
+      {
+        "command": "rpxToPxEvent",
+        "title": "rpx转px",
+        "category": "xs-"
+      },
+      {
+        "command": "pxToRpx",
+        "title": "css转换",
+        "category": "xs-"
+      },
+      {
+        "command": "xs-createApp",
+        "title": "创建向上前端项目",
+        "category": "xs-"
+      },
+      {
+        "command": "showDialog",
+        "title": "添加向上页面组件",
+        "category": "xs-"
+      },
+      {
+        "command": "addFolder",
+        "title": "创建文件夹",
+        "category": "xs-"
+      }
+    ],
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "extension.jenkinsConstruct",
+          "when": "viewItem == jenkins"
+        },
+        {
+          "command": "extension.jenkinsShowLog",
+          "when": "viewItem == jenkins"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "xs-createApp",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "pxToRpxEvent",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "rpxToPxEvent",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "showDialog",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "addFolder",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.61.0",
+    "@types/glob": "^7.1.4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.x",
+    "eslint": "^7.32.0",
+    "glob": "^7.1.7",
+    "mocha": "^9.1.1",
+    "typescript": "^4.4.3",
+    "@vscode/test-electron": "^1.6.2"
+  },
+  "dependencies": {
+    "jenkins": "^0.28.1"
+  }
 }
