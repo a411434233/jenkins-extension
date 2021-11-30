@@ -2,7 +2,7 @@
   "name": "xs-template-page",
   "displayName": "xs-template-page",
   "description": "向上Vue模板快捷导入",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publisher": "cjw",
   "icon": "images/logo2.jpg",
   "repository": {
@@ -109,11 +109,11 @@
       },
       {
         "command": "jenkins.getConfig",
-        "title": "编辑构建配置"
+        "title": "编辑配置"
       },
       {
         "command": "jenkins.openURL",
-        "title": "打开项目地址"
+        "title": "打开网站地址"
       },
       {
         "command": "pxToRpxEvent",
@@ -199,7 +199,8 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "node ./test/runTest.js"
+    "test": "node ./test/runTest.js",
+    "dev": "node ./test/runTest.js"
   },
   "devDependencies": {
     "@types/vscode": "^1.61.0",
@@ -213,6 +214,7 @@
     "@vscode/test-electron": "^1.6.2"
   },
   "dependencies": {
+    "babel-eslint": "^10.1.0",
     "jenkins": "^0.28.1"
   }
 }

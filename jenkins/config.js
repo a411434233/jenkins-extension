@@ -1,5 +1,5 @@
 const vscode = require('vscode')
-
+let jenkinsInit = require('jenkins')
 module.exports = () => {
   let xsTemplateConfig = vscode.workspace.getConfiguration('xsTemplateConfig')
   let username = xsTemplateConfig.get('userName')
@@ -10,14 +10,9 @@ module.exports = () => {
     return []
   }
 
-  const jenkins = require('jenkins')({
+  return jenkinsInit({
     baseUrl: `https://${username}:${password}@${loginHost}`,
-    crumbIssuer: true
+    crumbIssuer: true,
+    promisify: true
   })
-  return jenkins
 }
-
-
-//	"xsjenkinsConfig.loginHost": "jenkins.365xs.cn",
-// 	"xsjenkinsConfig.password": "1170286d18bb5bae6f9c1b6ed4318bc744",
-// 	"xsjenkinsConfig.userName": "18257170967"

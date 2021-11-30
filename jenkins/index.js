@@ -17,8 +17,7 @@ const jenkinsJob = async function (jobs, viewName) {
   })
 }
 
-
-const getJenkinsJobInfo = (name) => {
+const getJenkinsJobInfo = name => {
   return new Promise(resolve => {
     jenkins.job.get(name, (err, data) => {
       if (err) {
@@ -30,7 +29,6 @@ const getJenkinsJobInfo = (name) => {
     })
   })
 }
-
 
 const jenkinsViews = function () {
   return new Promise(resolve => {
@@ -99,16 +97,15 @@ const jenkinsLog = async function (name, nextBuildNumber, jenkins, htmlWebview) 
 /**
  * @param {vscode.ExtensionContext} context
  */
-const jenkinsInit = (context) => {
-  vscode.commands.registerCommand('jenkins.jenkinsConstruct', function (res) {
-    jenkins.job.get(res.label, function (err, getData) {
-      let nextBuildNumber = getData.nextBuildNumber
-      jenkins.job.build(res.label, function (err, data) {
-        let htmlWebview = vscode.window.createWebviewPanel('web', 'jenkins 构建日志' + res.label, 3)
-        htmlWebview.webview.html += `<div style="color: #387cdf;font-size: 14px;line-height: 28px">开始构建 ${res.label}</div>`
-        jenkinsLog(res.label, nextBuildNumber, jenkins, htmlWebview).then()
-      })
-    })
+const jenkinsInit = context => {
+  vscode.commands.registerCommand('jenkins.jenkinsConstruct', async function (res) {
+    let job = await jenkins.job.get(res.label)
+    let nextBuildNumber = job.nextBuildNumber
+    let jobBuild = await jenkins.job.build(job.name)
+    console.log(jobBuild)
+    let htmlWebview = vscode.window.createWebviewPanel('web', 'jenkins 构建日志' + res.label, 3)
+    htmlWebview.webview.html += `<div style="color: #387cdf;font-size: 14px;line-height: 28px">开始构建 ${res.label}</div>`
+    jenkinsLog(res.label, nextBuildNumber, jenkins, htmlWebview).then()
   })
   vscode.commands.registerCommand('jenkins.jenkinsShowLog', function (res) {
     jenkins.job.get(res.label, function (err, getData) {
@@ -147,9 +144,8 @@ const jenkinsInit = (context) => {
         })
       })
     })
-
   })
-  vscode.commands.registerCommand('jenkins.openURL', async (res) => {
+  vscode.commands.registerCommand('jenkins.openURL', async res => {
     let job = await getJenkinsJobInfo(res.label)
     vscode.env.openExternal(job.url)
   })
@@ -164,9 +160,9 @@ const jenkinsInit = (context) => {
       },
       getParent(element) {
         console.log('getParent', element)
-      },
+      }
     },
-    showCollapseAll: true,
+    showCollapseAll: true
   })
 }
 const jenkinsJobberViews = function (viewName) {
@@ -182,5 +178,5 @@ module.exports = {
   jenkinsJob,
   jenkinsLog,
   jenkinsInit,
-  jenkinsJobberViews,
+  jenkinsJobberViews
 }
