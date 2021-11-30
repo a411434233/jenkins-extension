@@ -6,7 +6,6 @@ const fs = require('fs')
 const vscode = require('vscode')
 
 module.exports = function (context) {
-
   //创建项目
   context.subscriptions.push(
     vscode.commands.registerCommand('xs-createApp', async function () {
@@ -17,15 +16,17 @@ module.exports = function (context) {
       } else {
         response = '../template/uniApp'
       }
-      const res = await vscode.window.showOpenDialog({ canSelectFolders: true, canSelectFiles: false, canSelectMany: false })
+      const res = await vscode.window.showOpenDialog({ title: '选择空的文件夹', canSelectFolders: true, canSelectFiles: false, canSelectMany: false })
       if (res.length) {
         let url = res[0].path.replace('/', '')
         copy(path.join(__dirname, response), url)
-        await vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.parse(res[0], false))
+        await vscode.commands.executeCommand('vscode.openFolder', vscode.Uri.parse(res[0], false), false, false)
+        let terminal = vscode.window.createTerminal()
+        terminal.show()
+        terminal.sendText('npm install', true)
       }
     })
   )
-
 
   //添加页面组件
   context.subscriptions.push(
@@ -56,7 +57,7 @@ module.exports = function (context) {
       if (!files) return
       files = files.map(value => value.replace('.vue', ''))
       const templateName = await vscode.window.showQuickPick(files, { placeHolder: '选择要创建的组件' })
-      fs.mkdir(path.join(urls, fileName), (err) => {
+      fs.mkdir(path.join(urls, fileName), err => {
         if (err == null && templateName) {
           fs.readFile(path.join(__dirname, 'xs-plugins/components', `${templateName}.vue`), {}, function (err, data) {
             fs.writeFile(`${urls}/${fileName}/${templateName}.vue`, data, writeErr => {
@@ -87,11 +88,10 @@ module.exports = function (context) {
           endData = pxToRpx(data)
         }
         if (actionsName === 'px转rem') {
-          let m = vscode.window.showInputBox({ title: '请输入除数' }) ?? '75'
+          let m = vscode.window.showInputBox({ title: '请输入除数' }) || '75'
           if (isNaN(parseInt(m))) return
           endData = pxToRem(data, m)
         }
-
         fs.writeFile(url, endData, function (err) {})
       })
     })
@@ -100,31 +100,28 @@ module.exports = function (context) {
   // px转rpx
   context.subscriptions.push(
     vscode.commands.registerCommand('pxToRpxEvent', async function (e) {
-        let config = vscode.workspace.getConfiguration('xsTemplateConfig')
-        let factorNum = config.get('rpxFactorNum')
-        const url = e.path.replace('/', '')
-        fs.readFile(url, { encoding: 'utf-8' }, function (err, data) {
-          let endData = ''
-          endData = pxToRpx(data, factorNum)
-          fs.writeFile(url, endData, function (err) {})
-        })
-      }
-    )
+      let config = vscode.workspace.getConfiguration('xsTemplateConfig')
+      let factorNum = config.get('rpxFactorNum')
+      const url = e.path.replace('/', '')
+      fs.readFile(url, { encoding: 'utf-8' }, function (err, data) {
+        let endData = ''
+        endData = pxToRpx(data, factorNum)
+        fs.writeFile(url, endData, function (err) {})
+      })
+    })
   )
 
   //rpx转px
   context.subscriptions.push(
     vscode.commands.registerCommand('rpxToPxEvent', async function (e) {
-        let config = vscode.workspace.getConfiguration('xsTemplateConfig')
-        let factorNum = config.get('pxFactorNum')
-        const url = e.path.replace('/', '')
-        fs.readFile(url, { encoding: 'utf-8' }, function (err, data) {
-          let endData = ''
-          endData = rpxToPx(data, factorNum)
-          fs.writeFile(url, endData, function (err) {})
-        })
-      }
-    )
+      let config = vscode.workspace.getConfiguration('xsTemplateConfig')
+      let factorNum = config.get('pxFactorNum')
+      const url = e.path.replace('/', '')
+      fs.readFile(url, { encoding: 'utf-8' }, function (err, data) {
+        let endData = ''
+        endData = rpxToPx(data, factorNum)
+        fs.writeFile(url, endData, function (err) {})
+      })
+    })
   )
-
 }

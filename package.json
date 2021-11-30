@@ -215,6 +215,8 @@
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
-    "jenkins": "^0.28.1"
+    "jenkins": "^0.28.1",
+    "xml2js": "^0.4.23",
+    "xmlreader": "^0.2.3"
   }
 }

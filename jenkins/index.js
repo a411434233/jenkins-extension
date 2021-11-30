@@ -19,7 +19,9 @@ const jenkinsJob = async function (jobs, viewName) {
 
 const jenkinsViews = function () {
   return new Promise(resolve => {
-    jenkins.info().then(data => {
+    jenkins
+    .info()
+    .then(data => {
       let arr = []
       data.views.forEach((values, index) => {
         arr.push({
@@ -29,7 +31,8 @@ const jenkinsViews = function () {
         })
       })
       resolve(arr)
-    }).catch(err => {
+    })
+    .catch(err => {
       vscode.window.showErrorMessage(JSON.stringify(err))
       return Promise.reject([])
     })
@@ -55,7 +58,7 @@ const jenkinsLog = async function (name, nextBuildNumber, jenkins, htmlWebview) 
     num = 0
     let log = jenkins.build.logStream(name, nextBuildNumber, { type: 'text', delay: 1000 })
     log.on('data', function (text) {
-      htmlWebview.webview.html += `<div style="color: #387cdf;font-size: 14px;line-height: 28px">${text}</div>`
+      htmlWebview.webview.html += `<div style="color: #eee;font-size: 14px;line-height: 28px">${text}</div>`
     })
 
     log.on('error', function (err) {
@@ -78,6 +81,40 @@ const jenkinsLog = async function (name, nextBuildNumber, jenkins, htmlWebview) 
     }, 1000)
   }
 }
+let xml2js = require('xml2js')
+const getParameterDefinitions = function (xml) {
+  return new Promise(resolve => {
+    xml2js.parseString(xml, { explicitArray: false }, (err, data) => {
+      if (err) {
+        resolve(null)
+        return
+      }
+      resolve(data)
+    })
+  })
+}
+
+const parameterDefinitions = function (obj = {}, attr = {}, key = 'parameterDefinitions') {
+  if (Object.prototype.hasOwnProperty.call(obj, key)) {
+    let o = obj[key]
+    for (let value of Object.keys(o)) {
+      attr.obj = o[value]
+    }
+    return
+  }
+  for (let key2 in obj) {
+    if (typeof obj[key2] === 'object' && !Array.isArray(obj[key2])) {
+      parameterDefinitions(obj[key2], attr, key)
+    }
+  }
+}
+
+const jenkinsBuildLog = function (job) {
+  let nextBuildNumber = job.nextBuildNumber
+  let htmlWebview = vscode.window.createWebviewPanel('web', 'jenkins 构建日志' + job.name, 3)
+  htmlWebview.webview.html += `<div style="color: #eee;font-size: 14px;line-height: 28px">开始构建 ${job.name}</div>`
+  jenkinsLog(job.name, nextBuildNumber, jenkins, htmlWebview).then()
+}
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -85,11 +122,21 @@ const jenkinsLog = async function (name, nextBuildNumber, jenkins, htmlWebview) 
 const jenkinsInit = context => {
   vscode.commands.registerCommand('jenkins.jenkinsConstruct', async function (res) {
     let job = await jenkins.job.get(res.label)
-    let nextBuildNumber = job.nextBuildNumber
-    let jobBuild = await jenkins.job.build(job.name)
-    let htmlWebview = vscode.window.createWebviewPanel('web', 'jenkins 构建日志' + res.label, 3)
-    htmlWebview.webview.html += `<div style="color: #387cdf;font-size: 14px;line-height: 28px">开始构建 ${res.label}</div>`
-    jenkinsLog(res.label, nextBuildNumber, jenkins, htmlWebview).then()
+    let jobConfigXml = await jenkins.job.config(res.label)
+    let xmlObj = await getParameterDefinitions(jobConfigXml)
+    let attr = { obj: null }
+    parameterDefinitions(xmlObj, attr)
+    let { obj } = attr
+    if (obj && obj.value) {
+      let items = obj.value.split(',').map(value => ({ label: value }))
+      let picker = await vscode.window.showQuickPick(items, { canPickMany: true })
+      if (!picker || picker.length <= 0) return
+      picker.forEach(v => jenkins.job.build(job.name, { name: v.label }))
+      jenkinsBuildLog(job)
+    } else {
+      await jenkins.job.build(job.name)
+      jenkinsBuildLog(job)
+    }
   })
   vscode.commands.registerCommand('jenkins.jenkinsShowLog', async function (res) {
     let job = await jenkins.job.get(res.label)
@@ -117,9 +164,12 @@ const jenkinsInit = context => {
         </body>
         </html>`
     configHtml.webview.onDidReceiveMessage(async ({ xml }) => {
-      jenkins.job.config(res.label, xml).then(() => {
+      jenkins.job
+      .config(res.label, xml)
+      .then(() => {
         vscode.window.showInformationMessage('保存成功')
-      }).catch((err) => {
+      })
+      .catch(err => {
         vscode.window.showErrorMessage(JSON.stringify(err))
       })
     })
@@ -139,7 +189,7 @@ const jenkinsInit = context => {
           return await jenkinsJob(views.jobs, element.label)
         }
         return await jenkinsViews(jenkins)
-      },
+      }
     },
     showCollapseAll: true
   })
@@ -147,5 +197,5 @@ const jenkinsInit = context => {
 module.exports = {
   jenkinsJob,
   jenkinsLog,
-  jenkinsInit,
+  jenkinsInit
 }

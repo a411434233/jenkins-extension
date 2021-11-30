@@ -18,9 +18,7 @@ function activate(context) {
 
   //注入jenkins
   jenkinsInit(context)
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with  registerCommand
-  // The commandId parameter must match the command field in package.json
+  //注入其它的操作
   xsUtils(context)
 }
 
