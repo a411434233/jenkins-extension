@@ -15,7 +15,6 @@ function activate(context) {
   // This line of code will only be executed once when your extension is activated
   console.log('恭喜，您的扩展“xs-plugin”现已激活！')
 
-
   //注入jenkins
   jenkinsInit(context)
   //注入其它的操作
