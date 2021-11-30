@@ -2,7 +2,7 @@
   "name": "xs-template-page",
   "displayName": "xs-template-page",
   "description": "向上Vue模板快捷导入",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "publisher": "cjw",
   "icon": "images/logo2.jpg",
   "repository": {
@@ -35,7 +35,7 @@
         {
           "id": "jenkins",
           "title": "Jenkins",
-          "icon": "media/dep.svg"
+          "icon": "media/jenkins.svg"
         }
       ]
     },
@@ -44,7 +44,7 @@
         {
           "id": "nodeDependencies",
           "name": "jenkins",
-          "icon": "media/dep.svg",
+          "icon": "media/jenkins.svg",
           "contextualTitle": "XS"
         }
       ]

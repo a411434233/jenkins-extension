@@ -10,9 +10,11 @@ module.exports = () => {
     return []
   }
 
-  return jenkinsInit({
+  const jenkins = jenkinsInit({
     baseUrl: `https://${username}:${password}@${loginHost}`,
     crumbIssuer: true,
     promisify: true
   })
+
+  return jenkins
 }
