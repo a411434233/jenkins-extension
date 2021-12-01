@@ -3,15 +3,15 @@ const { getOutHtml, jenkinsWeb } = require('../utils')
 const jenkins = require('./config')()
 const localStore = require('../loaclStore/localStroe')
 const { createTreeViewLocal, createTreeView } = require('./index')
-const { getParameterDefinitions, parameterDefinitions, jenkinsBuildLog } = require('./jenkinsUtils')
+const { jenkinsUtils } = require('./jenkinsUtils')
 
 module.exports = () => {
   vscode.commands.registerCommand('jenkins.jenkinsConstruct', async function (res) {
     let job = await jenkins.job.get(res.label)
     let jobConfigXml = await jenkins.job.config(job.name)
-    let xmlObj = await getParameterDefinitions(jobConfigXml)
+    let xmlObj = await jenkinsUtils.getParameterDefinitions(jobConfigXml)
     let attr = { obj: null }
-    parameterDefinitions(xmlObj, attr)
+    jenkinsUtils.parameterDefinitions(xmlObj, attr)
     let { obj } = attr
     if (obj) {
       let items = undefined
@@ -26,10 +26,10 @@ module.exports = () => {
       let picker = await vscode.window.showQuickPick(items, { canPickMany: true, title: '请选择需要构建的服务名称' })
       if (!picker || picker.length <= 0) return
       picker.forEach(v => jenkins.job.build({ name: job.name, parameters: { name: v.label } }))
-      jenkinsBuildLog(job)
+      jenkinsUtils.jenkinsBuildLog(job)
     } else {
       await jenkins.job.build(job.name)
-      jenkinsBuildLog(job)
+      jenkinsUtils.jenkinsBuildLog(job)
     }
   })
 

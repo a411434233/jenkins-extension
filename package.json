@@ -1,8 +1,8 @@
 {
-  "name": "xs-template-page",
-  "displayName": "xs-template-page",
-  "description": "向上Vue模板快捷导入",
-  "version": "0.1.2",
+  "name": "jenkins-tool",
+  "displayName": "jenkins-tool",
+  "description": "Jenkins 扩展",
+  "version": "0.1.1",
   "publisher": "cjw",
   "icon": "images/logo2.jpg",
   "repository": {

@@ -5,7 +5,7 @@ const { getOutHtml } = require('../utils')
 const xml2js = require('xml2js')
 let num = 0
 
-module.exports = {
+module.exports.jenkinsUtils = {
   jenkinsJob: async function (jobs, viewName) {
     return new Promise(resolve => {
       let arr = []
@@ -23,7 +23,9 @@ module.exports = {
   },
 
   jenkinsViews: async function () {
-    return await jenkins.info().then(data => {
+    return await jenkins
+    .info()
+    .then(data => {
       let arr = data.views.map((view, index) => {
         return {
           label: view.name,
@@ -32,7 +34,8 @@ module.exports = {
         }
       })
       return Promise.resolve(arr)
-    }).catch(err => {
+    })
+    .catch(err => {
       vscode.window.showErrorMessage(JSON.stringify(err))
       return Promise.reject([])
     })

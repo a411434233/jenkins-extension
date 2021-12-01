@@ -1,7 +1,7 @@
 const vscode = require('vscode')
 const jenkins = require('./config')()
 const localStore = require('../loaclStore/localStroe')
-const { jenkinsJob, jenkinsViews } = require('./jenkinsUtils')
+const { jenkinsUtils } = require('./jenkinsUtils')
 const createTreeView = () => {
   return new Promise((resolve) => {
     vscode.window.createTreeView('nodeDependencies', {
@@ -12,9 +12,9 @@ const createTreeView = () => {
         async getChildren(element) {
           if (element) {
             let views = await jenkins.view.get(element.label)
-            return await jenkinsJob(views.jobs, element.label)
+            return await jenkinsUtils.jenkinsJob(views.jobs, element.label)
           }
-          return await jenkinsViews(jenkins)
+          return await jenkinsUtils.jenkinsViews(jenkins)
         }
       },
       showCollapseAll: true
