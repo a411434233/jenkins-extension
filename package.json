@@ -2,7 +2,7 @@
   "name": "xs-template-page",
   "displayName": "xs-template-page",
   "description": "向上Vue模板快捷导入",
-  "version": "0.1.12",
+  "version": "0.1.2",
   "publisher": "cjw",
   "icon": "images/logo2.jpg",
   "repository": {
@@ -27,7 +27,9 @@
     "onCommand:jenkins.jenkinsShowLog",
     "onCommand:jenkins.getConfig",
     "onCommand:jenkins.openURL",
-    "onCommand:jenkins.refreshEntry"
+    "onCommand:jenkins.refreshEntry",
+    "onCommand:jenkins.addStore",
+    "onCommand:jenkins.removeAtStore"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -44,9 +46,11 @@
       "jenkins": [
         {
           "id": "nodeDependencies",
-          "name": "jenkins",
-          "icon": "media/jenkins.svg",
-          "contextualTitle": "XS"
+          "name": "jenkins 列表"
+        },
+        {
+          "id": "localList",
+          "name": "我的收藏"
         }
       ]
     },
@@ -117,6 +121,14 @@
         "title": "Open jenkins URL"
       },
       {
+        "command": "jenkins.removeAtStore",
+        "title": "从收藏中移除"
+      },
+      {
+        "command": "jenkins.addStore",
+        "title": "添加到”我的收藏“"
+      },
+      {
         "command": "jenkins.refreshEntry",
         "title": "Refresh",
         "icon": {
@@ -166,19 +178,27 @@
       "view/item/context": [
         {
           "command": "jenkins.jenkinsConstruct",
-          "when": "viewItem == jenkins"
+          "when": "viewItem == jenkins || view == localList"
         },
         {
           "command": "jenkins.openURL",
-          "when": "viewItem == jenkins"
+          "when": "viewItem == jenkins || view == localList"
         },
         {
           "command": "jenkins.jenkinsShowLog",
-          "when": "viewItem == jenkins"
+          "when": "viewItem == jenkins || view == localList"
         },
         {
           "command": "jenkins.getConfig",
-          "when": "viewItem == jenkins"
+          "when": "viewItem == jenkins || view == localList"
+        },
+        {
+          "command": "jenkins.addStore",
+          "when": "view == nodeDependencies"
+        },
+        {
+          "command": "jenkins.removeAtStore",
+          "when": "view == localList"
         }
       ],
       "editor/context": [
