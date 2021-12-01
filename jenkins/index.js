@@ -1,19 +1,9 @@
 const vscode = require('vscode')
 const path = require('path')
 const jenkins = require('./config')()
+let xml2js = require('xml2js')
+const { getOutHtml, jenkinsWeb } = require('../utils')
 
-const getOutHtml = html => {
-  return `
-      <style>
-          .console-output{
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            margin: 0;
-            line-height:1.4em
-          }
-      </style>
-      <div class="console-output">${html}</div>`
-}
 const jenkinsJob = async function (jobs, viewName) {
   return new Promise(resolve => {
     let arr = []
@@ -80,7 +70,7 @@ const jenkinsLog = async function (name, nextBuildNumber, jenkins, htmlWebview) 
     }, 1000)
   }
 }
-let xml2js = require('xml2js')
+
 const getParameterDefinitions = function (xml) {
   return new Promise(resolve => {
     xml2js.parseString(xml, { explicitArray: false }, (err, data) => {
@@ -159,16 +149,7 @@ const jenkinsInit = async () => {
     let configHtml = vscode.window.createWebviewPanel('html', 'jenkins config', vscode.ViewColumn.One, { enableScripts: true })
     const jobConfig = await jenkins.job.config(res.label)
     configHtml.visible = true
-    configHtml.webview.html = `
-          <textarea id="app" cols="120" rows="50">${jobConfig}</textarea>
-          <button id="save" onclick="add()">保存并更新</button>
-          <script>
-               const vscode = acquireVsCodeApi(); 
-                document.getElementById('save').onclick =function (){
-                  let data = document.getElementById('app').value
-                  vscode.postMessage({ xml:data});
-                }
-          </script>`
+    configHtml.webview.html = jenkinsWeb(jobConfig)
     configHtml.webview.onDidReceiveMessage(async ({ xml }) => {
       jenkins.job.config(res.label, xml, function (err, data) {
         if (err) return vscode.window.showErrorMessage(JSON.stringify(err))

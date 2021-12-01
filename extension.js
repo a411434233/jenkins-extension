@@ -3,7 +3,6 @@
 const xsUtils = require('./xs-utils/index')
 const vscode = require('vscode')
 const { jenkinsInit } = require('./jenkins')
-
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
