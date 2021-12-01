@@ -112,10 +112,10 @@ const jenkinsBuildLog = function (job) {
   jenkinsLog(job.name, nextBuildNumber, jenkins, htmlWebview).then()
 }
 
-const jenkinsInit = () => {
+const jenkinsInit = async () => {
   vscode.commands.registerCommand('jenkins.jenkinsConstruct', async function (res) {
     let job = await jenkins.job.get(res.label)
-    let jobConfigXml = await jenkins.job.config(res.label)
+    let jobConfigXml = await jenkins.job.config(job.name)
     let xmlObj = await getParameterDefinitions(jobConfigXml)
     let attr = { obj: null }
     parameterDefinitions(xmlObj, attr)
@@ -182,7 +182,7 @@ const jenkinsInit = () => {
     let job = await jenkins.job.get(res.label)
     vscode.env.openExternal(job.url)
   })
-  createTreeView()
+  await createTreeView()
 }
 const createTreeView = () => {
   return new Promise((resolve) => {
