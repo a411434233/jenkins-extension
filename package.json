@@ -2,7 +2,7 @@
   "name": "xs-template-page",
   "displayName": "xs-template-page",
   "description": "向上Vue模板快捷导入",
-  "version": "0.1.7",
+  "version": "0.1.12",
   "publisher": "cjw",
   "icon": "images/logo2.jpg",
   "repository": {
@@ -26,7 +26,8 @@
     "onCommand:jenkins.jenkinsConstruct",
     "onCommand:jenkins.jenkinsShowLog",
     "onCommand:jenkins.getConfig",
-    "onCommand:jenkins.openURL"
+    "onCommand:jenkins.openURL",
+    "onCommand:jenkins.refreshEntry"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -101,19 +102,27 @@
     "commands": [
       {
         "command": "jenkins.jenkinsConstruct",
-        "title": "构建项目"
+        "title": "Build on jenkins"
       },
       {
         "command": "jenkins.jenkinsShowLog",
-        "title": "查看最近构建日志"
+        "title": "Show last log"
       },
       {
         "command": "jenkins.getConfig",
-        "title": "编辑配置"
+        "title": "Edit jenkins config"
       },
       {
         "command": "jenkins.openURL",
-        "title": "打开网站地址"
+        "title": "Open jenkins URL"
+      },
+      {
+        "command": "jenkins.refreshEntry",
+        "title": "Refresh",
+        "icon": {
+          "light": "media/refresh2.svg",
+          "dark": "media/refresh1.svg"
+        }
       },
       {
         "command": "pxToRpxEvent",
@@ -147,6 +156,13 @@
       }
     ],
     "menus": {
+      "view/title": [
+        {
+          "command": "jenkins.refreshEntry",
+          "when": "view == nodeDependencies",
+          "group": "navigation"
+        }
+      ],
       "view/item/context": [
         {
           "command": "jenkins.jenkinsConstruct",

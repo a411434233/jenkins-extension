@@ -1,4 +1,4 @@
-const { copy, pxToRem, pxToRpx, rpxToPx } = require('../utils')
+const { copy, pxToRem, pxToRpx, rpxToPx } = require('./utils')
 const path = require('path')
 
 const fs = require('fs')
